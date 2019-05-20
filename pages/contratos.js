@@ -2,25 +2,24 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import DashboardLayout from "../components/DashboardLayout";
-import ContractTable from "../components/ContractTable";
+import ContractTable from "../components/contract/ContractTable";
+import ContractList from "../components/contract/ContractList";
 import Zoom from "@material-ui/core/Zoom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import FormDialog from "../components/FormDialog";
+import { appRoutes } from "../src/constants";
 
 const styles = theme => ({
   fab: {
     position: "fixed",
-    bottom: theme.spacing.unit * 4,
-    right: theme.spacing.unit * 4
-  },
-  tableContainer: {
-    height: 320
+    bottom: theme.spacing.unit * 6,
+    right: theme.spacing.unit * 6
   }
 });
 
 const Contratos = props => {
-  const { classes, contracts } = props;
+  const { classes, dashboardLayoutConfig } = props;
 
   const fabs = [
     {
@@ -28,16 +27,6 @@ const Contratos = props => {
       className: classes.fab,
       icon: <AddIcon />
     }
-    // {
-    //   color: "secondary",
-    //   className: classes.fab,
-    //   icon: <EditIcon />
-    // },
-    // {
-    //   color: "inherit",
-    //   className: classNames(classes.fab, classes.fabGreen),
-    //   icon: <UpIcon />
-    // }
   ];
 
   const [openFormDialog, setOpenFormDialog] = React.useState(false);
@@ -51,13 +40,12 @@ const Contratos = props => {
   }
 
   return (
-    <DashboardLayout>
+    <DashboardLayout dashboardLayoutConfig={dashboardLayoutConfig}>
       <Typography variant="h4" gutterBottom component="h2">
         Contratos
       </Typography>
-      <div className={classes.tableContainer}>
-        <ContractTable contracts={contracts} />
-      </div>
+      <ContractTable />
+      <ContractList />
       <Zoom
         key={fabs[0].color}
         in={true}
@@ -82,26 +70,33 @@ const Contratos = props => {
   );
 };
 
-Contratos.getInitialProps = async function() {
+Contratos.getInitialProps = async function({ pathname }) {
   // 1-  Token Validation or other request here -------------------------
 
-  const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-  const data = await res.json();
+  // -------
 
-  console.log(`Show data fetched. Count: ${data.length}`);
-  console.log("server contratos index");
+  const selectedMenu =
+    appRoutes.contratos.home.href === pathname ||
+    appRoutes.contratos.selectedIndex
+      ? appRoutes.contratos.selectedIndex
+      : 1;
 
   return {
-    user: {
-      name: "Erick",
-      quiroz: "Quiroz"
-    },
-    contracts: data
+    dashboardLayoutConfig: {
+      user: {
+        name: "Erick"
+      },
+      selectedMenu
+    }
   };
 };
 
 Contratos.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  dashboardLayoutConfig: PropTypes.shape({
+    user: PropTypes.object,
+    selectedMenu: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default withStyles(styles)(Contratos);

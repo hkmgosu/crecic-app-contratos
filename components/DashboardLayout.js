@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import Router from "next/router";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -6,7 +7,7 @@ import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
@@ -138,7 +139,7 @@ class DashboardLayout extends React.Component {
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
-    const { classes } = this.props;
+    const { classes, dashboardLayoutConfig } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -223,6 +224,12 @@ class DashboardLayout extends React.Component {
               <img src="/static/logo_crecic.png" style={{ marginTop: "3px" }} />
             </div>
             <div className={classes.grow} />
+            <Button
+              color="inherit"
+              onClick={() => window.location.assign("http://www.google.cl")}
+            >
+              ir a dashboard
+            </Button>
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
@@ -273,10 +280,13 @@ class DashboardLayout extends React.Component {
           </div>
           <Divider />
           <List>
-            <HomeListItems />
+            <HomeListItems selectedMenu={dashboardLayoutConfig.selectedMenu} />
           </List>
           <Divider />
-          <MenuListItems handleDrawerOpen={this.handleDrawerOpen} />
+          <MenuListItems
+            handleDrawerOpen={this.handleDrawerOpen}
+            selectedMenu={dashboardLayoutConfig.selectedMenu}
+          />
           <Divider />
           <List>{secondaryListItems}</List>
         </Drawer>
@@ -290,7 +300,11 @@ class DashboardLayout extends React.Component {
 }
 
 DashboardLayout.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  dashboardLayoutConfig: PropTypes.shape({
+    user: PropTypes.object,
+    selectedMenu: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default withStyles(styles)(DashboardLayout);

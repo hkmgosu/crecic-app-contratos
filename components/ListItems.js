@@ -8,17 +8,26 @@ import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import LayersIcon from "@material-ui/icons/Layers";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import Router from "next/router";
+import { appRoutes } from "../src/constants";
 
 export const HomeListItems = props => (
   <div>
     <ListItem
       button
-      onClick={() => window.location.assign("http://www.google.cl")}
+      selected={props.selectedMenu === appRoutes.index.selectedIndex}
+      onClick={() => Router.push(appRoutes.index.home.href)}
     >
       <ListItemIcon>
-        <DashboardIcon />
+        <DashboardIcon
+          color={
+            props.selectedMenu === appRoutes.index.selectedIndex
+              ? "primary"
+              : "inherit"
+          }
+        />
       </ListItemIcon>
-      <ListItemText primary="Home" />
+      <ListItemText primary="Inicio" />
     </ListItem>
   </div>
 );

@@ -11,6 +11,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import Router from "next/router";
+import { appRoutes } from "../src/constants";
 
 const styles = theme => ({
   selectedListItem: {
@@ -18,21 +19,16 @@ const styles = theme => ({
   },
   selectedListItemIcon: {
     color: "white"
-  },
-  nested: {
-    // paddingLeft: theme.spacing.unit * 3
   }
+  // nested: {
+  //   paddingLeft: theme.spacing.unit * 3
+  // }
 });
 
-const urls = {
-  1: "/contratos",
-  2: "/contadores"
-};
-
 function MenuListItems(props) {
-  const { classes, handleDrawerOpen } = props;
+  const { classes, handleDrawerOpen, selectedMenu } = props;
   const [open, setOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(selectedMenu);
 
   function handleListItemClick(event, index) {
     setSelectedIndex(index);
@@ -46,30 +42,42 @@ function MenuListItems(props) {
     <List>
       <ListSubheader inset>Menú Principal</ListSubheader>
       <ListItem
-        key={1}
+        key={appRoutes.contratos.selectedIndex}
         button
-        selected={selectedIndex === 1}
+        selected={selectedIndex === appRoutes.contratos.selectedIndex}
         onClick={event => {
-          handleListItemClick(event, 1);
-          Router.push(urls["1"]);
+          handleListItemClick(event, appRoutes.contratos.selectedIndex);
+          Router.push(appRoutes.contratos.home.href);
         }}
       >
         <ListItemIcon>
-          <PeopleIcon color={selectedIndex === 1 ? "primary" : "inherit"} />
+          <PeopleIcon
+            color={
+              selectedIndex === appRoutes.contratos.selectedIndex
+                ? "primary"
+                : "inherit"
+            }
+          />
         </ListItemIcon>
         <ListItemText inset primary="Contratos" />
       </ListItem>
       <ListItem
-        key={2}
+        key={appRoutes.contadores.selectedIndex}
         button
-        selected={selectedIndex === 2}
+        selected={selectedIndex === appRoutes.contadores.selectedIndex}
         onClick={event => {
-          handleListItemClick(event, 2);
-          Router.push(urls["2"]);
+          handleListItemClick(event, appRoutes.contadores.selectedIndex);
+          Router.push(appRoutes.contadores.home.href);
         }}
       >
         <ListItemIcon>
-          <BarChartIcon color={selectedIndex === 2 ? "primary" : "inherit"} />
+          <BarChartIcon
+            color={
+              selectedIndex === appRoutes.contadores.selectedIndex
+                ? "primary"
+                : "inherit"
+            }
+          />
         </ListItemIcon>
         <ListItemText inset primary="Contadores" />
       </ListItem>
@@ -96,7 +104,7 @@ function MenuListItems(props) {
             button
             selected={selectedIndex === 4}
             onClick={event => handleListItemClick(event, 4)}
-            className={classes.nested}
+            // className={classes.nested}
           >
             <ListItemIcon>
               <BarChartIcon

@@ -1,13 +1,14 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import DashboardLayout from "../components/DashboardLayout";
-import ContractTable from "../components/contract/ContractTable";
-import ContractList from "../components/contract/ContractList";
 import Zoom from "@material-ui/core/Zoom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import FormDialog from "../components/FormDialog";
+import DashboardLayout from "../components/DashboardLayout";
+import ContractTable from "../components/contract/ContractTable";
+import ContractList from "../components/contract/ContractList";
+import ContractFormDialog from "../components/contract/ContractFormDialog";
 import { appRoutes } from "../src/constants";
 
 const styles = theme => ({
@@ -29,27 +30,32 @@ const Contratos = props => {
     }
   ];
 
-  const [openFormDialog, setOpenFormDialog] = React.useState(false);
+  const [openContractFormDialog, setOpenContractFormDialog] = React.useState(
+    false
+  );
 
-  function handleFormDialogClickOpen() {
-    setOpenFormDialog(true);
+  function handleContractFormDialogClickOpen() {
+    setOpenContractFormDialog(true);
   }
 
-  function handleFormDialogClose() {
-    setOpenFormDialog(false);
+  function handleContractFormDialogClose() {
+    setOpenContractFormDialog(false);
   }
 
   return (
     <DashboardLayout dashboardLayoutConfig={dashboardLayoutConfig}>
-      <Typography variant="h4" gutterBottom component="h2">
+      <Typography variant="title" gutterBottom component="h2">
         Contratos
       </Typography>
       <ContractTable />
       <ContractList />
       <Zoom
         key={fabs[0].color}
-        in={true}
-        timeout={{ enter: 600, exit: 600 }}
+        in
+        timeout={{
+          enter: 600,
+          exit: 600
+        }}
         style={{
           transitionDelay: `600ms`
         }}
@@ -58,19 +64,22 @@ const Contratos = props => {
         <Fab
           className={fabs[0].className}
           color={fabs[0].color}
-          onClick={handleFormDialogClickOpen}
+          onClick={handleContractFormDialogClickOpen}
         >
           {fabs[0].icon}
         </Fab>
       </Zoom>
       <Zoom>
-        <FormDialog open={openFormDialog} handleClose={handleFormDialogClose} />
+        <ContractFormDialog
+          open={openContractFormDialog}
+          handleClose={handleContractFormDialogClose}
+        />
       </Zoom>
     </DashboardLayout>
   );
 };
 
-Contratos.getInitialProps = async function({ pathname }) {
+Contratos.getInitialProps = async function getInitialProps({ pathname }) {
   // 1-  Token Validation or other request here -------------------------
 
   // -------

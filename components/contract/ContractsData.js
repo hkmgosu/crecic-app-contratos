@@ -80,3 +80,5 @@ export const contracts = [
     vendedor: "Vendedor Uno"
   }
 ];
+
+export default contracts;

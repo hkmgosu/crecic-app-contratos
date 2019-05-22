@@ -73,7 +73,11 @@ class ContractTable extends Component {
                 <TableRow key={n.show.id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell component="th" scope="column">
-                    <img src={n.show.image.medium} style={{ height: "50%" }} />
+                    <img
+                      alt=""
+                      src={n.show.image.medium}
+                      style={{ height: "50%" }}
+                    />
                   </TableCell>
                   <TableCell>{n.show.premiered}</TableCell>
                   <TableCell>{n.show.rating.average}</TableCell>

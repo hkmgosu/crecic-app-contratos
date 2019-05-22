@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import Router from "next/router";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,8 +18,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import { HomeListItems, secondaryListItems } from "../components/listItems";
-import MenuListItems from "../components/MenuListItems";
+import { HomeListItems, secondaryListItems } from "./ListItems";
+import MenuListItems from "./MenuListItems";
 
 const drawerWidth = 240;
 

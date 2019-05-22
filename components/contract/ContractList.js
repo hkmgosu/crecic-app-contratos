@@ -8,12 +8,120 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
-import DirectionsIcon from "@material-ui/icons/Directions";
 import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import MenuIcon from "@material-ui/icons/Menu";
+import deepPurple from "@material-ui/core/colors/deepPurple";
 
-const styles = theme => ({
+const contractListAppBarstyles = theme => ({
+  root: {
+    width: "100%"
+  },
+  grow: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginLeft: 20
+  },
+  title: {
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block"
+    }
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing.unit,
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    color: "inherit",
+    width: "100%"
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: 120,
+      "&:focus": {
+        width: 240
+      }
+    }
+  }
+});
+
+function SearchAppBar(props) {
+  const { classes } = props;
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            color="inherit"
+            noWrap
+          >
+            Contratos
+          </Typography>
+          <div className={classes.grow} />
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Buscar…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+            />
+          </div>
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Abrir Opciones"
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
+
+SearchAppBar.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+const ContractListAppBar = withStyles(contractListAppBarstyles)(SearchAppBar);
+
+const contractListStyles = theme => ({
   root: {
     width: "100%",
     backgroundColor: theme.palette.background.paper,
@@ -22,23 +130,10 @@ const styles = theme => ({
   inline: {
     display: "inline"
   },
-  searchField: {
-    padding: "2px 4px",
-    display: "flex",
-    alignItems: "center",
-    width: 300
-  },
-  input: {
-    marginLeft: 8,
-    flex: 1
-  },
-  iconButton: {
-    padding: 10
-  },
-  divider: {
-    width: 1,
-    height: 24,
-    margin: 4
+  avatar: {
+    margin: 6,
+    color: "#fff",
+    backgroundColor: deepPurple[500]
   }
 });
 
@@ -126,26 +221,38 @@ const listItemDatas = [
 ];
 
 function ContractList(props) {
-  const { classes } = props;
+  const { classes, handleClickListItem } = props;
 
   const listItems = [];
   listItemDatas.forEach((listItemData, index) =>
     listItems.push(
-      <ListItem key={index} button alignItems="flex-start">
+      <ListItem
+        key={index + 1}
+        button
+        onClick={handleClickListItem}
+        alignItems="flex-start"
+      >
         <ListItemAvatar>
           <Avatar
+            className={classes.avatar}
             alt={
-              listItemData.avatar ? listItemData.avatar.alt : index.toString()
+              listItemData.avatar
+                ? listItemData.avatar.alt
+                : (index + 1).toString()
             }
-          />
+          >
+            {listItemData.avatar
+              ? listItemData.avatar.alt
+              : (index + 1).toString()}
+          </Avatar>
         </ListItemAvatar>
         <ListItemText
           primary={
             <React.Fragment>
-              <Typography className={classes.inline} variant="h6">
-                {listItemData.NomAux}{" "}
+              <Typography className={classes.inline} variant="subtitle2">
+                {listItemData.NomAux} {listItemData.RutAux}{" "}
               </Typography>
-              {listItemData.RutAux}
+              {""}
             </React.Fragment>
           }
           secondary={
@@ -167,32 +274,15 @@ function ContractList(props) {
 
   return (
     <List className={classes.root}>
-      <ListItem alignItems="flex-start">
-        <Typography gutterBottom variant="h5" style={{ paddingTop: "6px" }}>
-          Lista Contratos
-        </Typography>
-        <div className={classes.searchField}>
-          <InputBase className={classes.input} placeholder="Buscar..." />
-          <IconButton className={classes.iconButton} aria-label="Search">
-            <SearchIcon />
-          </IconButton>
-          <Divider className={classes.divider} />
-          <IconButton
-            color="primary"
-            className={classes.iconButton}
-            aria-label="Directions"
-          >
-            <DirectionsIcon />
-          </IconButton>
-        </div>
-      </ListItem>
+      <ContractListAppBar />
       {listItems}
     </List>
   );
 }
 
 ContractList.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  handleClickListItem: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(ContractList);
+export default withStyles(contractListStyles)(ContractList);

@@ -26,18 +26,18 @@ function ContractFormDialog(props) {
         {/* <DialogContentText>Validar contrato:</DialogContentText> */}
         <TextField
           style={{ padding: 6 }}
-          id="name"
+          id="seller"
+          name="seller"
           label="Vendedor"
           type="text"
           fullWidth
           margin="normal"
-          variant="outlined"
         />
         <TextField
           style={{ padding: 6 }}
           margin="normal"
-          variant="outlined"
-          id="name"
+          name="contract_type"
+          id="contract_type"
           label="Tipo Contrato"
           type="text"
           fullWidth
@@ -45,28 +45,28 @@ function ContractFormDialog(props) {
         <TextField
           style={{ padding: 6 }}
           margin="normal"
-          variant="outlined"
-          id="name"
-          label="Codigo Cliente"
+          id="customer_code"
+          name="client_code"
+          label="Código Cliente"
           type="text"
           fullWidth
         />
         <TextField
           style={{ padding: 6 }}
-          id="name"
+          id="customer_rut"
+          name="customer_rut"
           label="Rut Cliente"
           type="text"
           margin="normal"
-          variant="outlined"
           fullWidth
         />
         <TextField
           style={{ padding: 6 }}
-          id="name"
+          id="customer_name"
+          name="customer_name"
           label="Razón Social"
           type="text"
           margin="normal"
-          variant="outlined"
           fullWidth
         />
       </DialogContent>

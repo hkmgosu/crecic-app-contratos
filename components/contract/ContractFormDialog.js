@@ -12,7 +12,7 @@ const fakeProps = {
 };
 
 function ContractFormDialog(props) {
-  const { open, handleClose } = props;
+  const { open, handleClose, handleShowContractDetails } = props;
 
   return (
     <Dialog
@@ -74,7 +74,13 @@ function ContractFormDialog(props) {
         <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
-        <Button onClick={handleClose} color="primary">
+        <Button
+          onClick={() => {
+            handleClose();
+            handleShowContractDetails();
+          }}
+          color="primary"
+        >
           Ok
         </Button>
       </DialogActions>

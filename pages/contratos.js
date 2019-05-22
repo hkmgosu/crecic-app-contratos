@@ -91,6 +91,7 @@ const Contratos = props => {
       <ContractFormDialog
         open={openContractFormDialog}
         handleClose={handleContractFormDialogClose}
+        handleShowContractDetails={handleShowContractDetails}
       />
     </DashboardLayout>
   ) : (

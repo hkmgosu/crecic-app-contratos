@@ -191,16 +191,13 @@ class Autocomplete extends React.Component {
             classes={classes}
             styles={selectStyles}
             textFieldProps={{
-              label: "Vendedores",
-              InputLabelProps: {
-                shrink: true
-              }
+              label: "Vendedores"
             }}
             options={sellers}
             components={components}
             value={this.state.single}
             onChange={this.handleChange("single")}
-            placeholder="Seleccione vendedor..."
+            placeholder=""
           />
         </NoSsr>{" "}
       </div>

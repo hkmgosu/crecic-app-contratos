@@ -10,6 +10,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import BuildIcon from "@material-ui/icons/Build";
+import LayersIcon from "@material-ui/icons/Layers";
 import Router from "next/router";
 import { appRoutes } from "../src/constants";
 
@@ -19,10 +21,10 @@ const styles = theme => ({
   },
   selectedListItemIcon: {
     color: "white"
+  },
+  nested: {
+    // paddingLeft: theme.spacing.unit * 3
   }
-  // nested: {
-  //   paddingLeft: theme.spacing.unit * 3
-  // }
 });
 
 function MenuListItems(props) {
@@ -104,17 +106,29 @@ function MenuListItems(props) {
             button
             selected={selectedIndex === 4}
             onClick={event => handleListItemClick(event, 4)}
-            // className={classes.nested}
+            className={classes.nested}
           >
             <ListItemIcon>
               <BarChartIcon
                 color={selectedIndex === 4 ? "primary" : "inherit"}
               />
             </ListItemIcon>
-            <ListItemText inset primary="Starred" />
+            <ListItemText inset primary="Informe 12-34" />
           </ListItem>
         </List>
       </Collapse>
+      <ListItem button>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary="Mantenedores" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <BuildIcon />
+        </ListItemIcon>
+        <ListItemText primary="Configuraciones" />
+      </ListItem>
     </List>
   );
 }

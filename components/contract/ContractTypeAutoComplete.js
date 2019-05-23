@@ -10,13 +10,13 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const sellers = [
-  { VenCod: "101", VenDes: "Vendedor Uno" },
-  { VenCod: "102", VenDes: "Vendedor Dos" },
-  { VenCod: "103", VenDes: "Vendedor Tres" }
-].map(seller => ({
-  value: seller.VenCod,
-  label: seller.VenDes
+const contractTypes = [
+  { id: 1, nombre: "Arriendo" },
+  { id: 2, nombre: "Hosting" },
+  { id: 3, nombre: "Desarrollo" }
+].map(type => ({
+  value: type.id,
+  label: type.nombre
 }));
 
 const styles = theme => ({
@@ -191,16 +191,16 @@ class Autocomplete extends React.Component {
             classes={classes}
             styles={selectStyles}
             textFieldProps={{
-              label: "Vendedores",
+              label: "Tipo Contrato",
               InputLabelProps: {
                 shrink: true
               }
             }}
-            options={sellers}
+            options={contractTypes}
             components={components}
             value={this.state.single}
             onChange={this.handleChange("single")}
-            placeholder="Seleccione vendedor..."
+            placeholder="Seleccione tipo..."
           />
         </NoSsr>{" "}
       </div>

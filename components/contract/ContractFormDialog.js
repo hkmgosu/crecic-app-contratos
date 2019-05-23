@@ -4,8 +4,10 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+// import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import ContractSellerAutoComplete from "./ContractSellerAutoComplete";
+import ContractTypeAutoComplete from "./ContractTypeAutoComplete";
 
 const fakeProps = {
   title: "Nuevo Contrato"
@@ -24,24 +26,8 @@ function ContractFormDialog(props) {
       <DialogTitle id="form-dialog-title">{fakeProps.title}</DialogTitle>
       <DialogContent style={{ display: "flex", flexWrap: "wrap" }}>
         {/* <DialogContentText>Validar contrato:</DialogContentText> */}
-        <TextField
-          style={{ padding: 6 }}
-          id="seller"
-          name="seller"
-          label="Vendedor"
-          type="text"
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          style={{ padding: 6 }}
-          margin="normal"
-          name="contract_type"
-          id="contract_type"
-          label="Tipo Contrato"
-          type="text"
-          fullWidth
-        />
+        <ContractSellerAutoComplete />
+        <ContractTypeAutoComplete />
         <TextField
           style={{ padding: 6 }}
           margin="normal"
@@ -49,6 +35,9 @@ function ContractFormDialog(props) {
           name="client_code"
           label="Código Cliente"
           type="text"
+          InputLabelProps={{
+            shrink: true
+          }}
           fullWidth
         />
         <TextField
@@ -57,6 +46,9 @@ function ContractFormDialog(props) {
           name="customer_rut"
           label="Rut Cliente"
           type="text"
+          InputLabelProps={{
+            shrink: true
+          }}
           margin="normal"
           fullWidth
         />
@@ -66,6 +58,9 @@ function ContractFormDialog(props) {
           name="customer_name"
           label="Razón Social"
           type="text"
+          InputLabelProps={{
+            shrink: true
+          }}
           margin="normal"
           fullWidth
         />

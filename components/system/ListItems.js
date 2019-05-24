@@ -5,7 +5,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import Router from "next/router";
-import { appRoutes } from "../src/constants";
+import { appRoutes } from "../../src/constants";
 
 export const HomeListItems = props => (
   <div>

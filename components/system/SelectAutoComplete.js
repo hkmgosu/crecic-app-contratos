@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types, react/jsx-handler-names */
+/* eslint-disable react/jsx-handler-names */
 
 import React from "react";
 import PropTypes from "prop-types";
@@ -10,20 +10,10 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const sellers = [
-  { VenCod: "101", VenDes: "Vendedor Uno" },
-  { VenCod: "102", VenDes: "Vendedor Dos" },
-  { VenCod: "103", VenDes: "Vendedor Tres" }
-].map(seller => ({
-  value: seller.VenCod,
-  label: seller.VenDes
-}));
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    width: "100%",
-    marginBottom: 24
+    width: "100%"
   },
   input: {
     display: "flex",
@@ -63,7 +53,8 @@ function NoOptionsMessage(props) {
       className={props.selectProps.classes.noOptionsMessage}
       {...props.innerProps}
     >
-      {props.children}{" "}
+      {/* {props.children}{" "} */}
+      {"No hay opciones"}
     </Typography>
   );
 }
@@ -160,19 +151,23 @@ const components = {
   ValueContainer
 };
 
-class Autocomplete extends React.Component {
+class SelectAutocomplete extends React.Component {
   state = {
     single: null
   };
 
-  handleChange = single => value => {
-    this.setState({
-      [single]: value
-    });
+  handleChange = single => option => {
+    console.log("valueeee", option);
+    this.setState(
+      {
+        [single]: option
+      },
+      this.props.onChange(option.value)
+    );
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, label, options } = this.props;
 
     const selectStyles = {
       input: base => ({
@@ -191,9 +186,12 @@ class Autocomplete extends React.Component {
             classes={classes}
             styles={selectStyles}
             textFieldProps={{
-              label: "Vendedores"
+              label,
+              InputLabelProps: {
+                shrink: this.state.single !== null
+              }
             }}
-            options={sellers}
+            options={options}
             components={components}
             value={this.state.single}
             onChange={this.handleChange("single")}
@@ -205,11 +203,24 @@ class Autocomplete extends React.Component {
   }
 }
 
-Autocomplete.propTypes = {
+SelectAutocomplete.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.node,
+        PropTypes.element
+      ])
+    }).isRequired
+  ).isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default withStyles(styles, {
   withTheme: true
-})(Autocomplete);
+})(SelectAutocomplete);

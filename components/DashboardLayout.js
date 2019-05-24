@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -18,8 +19,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import { HomeListItems, secondaryListItems } from "./ListItems";
-import MenuListItems from "./MenuListItems";
+import { HomeListItems, secondaryListItems } from "./system/ListItems";
+import MenuListItems from "./system/MenuListItems";
 
 const drawerWidth = 240;
 
@@ -220,16 +221,20 @@ class DashboardLayout extends React.Component {
               <MenuIcon />
             </IconButton>
             <div>
-              <img src="/static/logo_crecic.png" style={{ marginTop: "3px" }} />
+              <img
+                alt="logo"
+                src="/static/logo_crecic.png"
+                style={{ marginTop: "3px" }}
+              />
             </div>
             <div className={classes.grow} />
-            <Button
-              color="inherit"
-              onClick={() => window.location.assign("http://www.google.cl")}
-            >
-              ir a dashboard
-            </Button>
             <div className={classes.sectionDesktop}>
+              <Button
+                color="inherit"
+                onClick={() => window.location.assign("http://www.google.cl")}
+              >
+                ir a dashboard
+              </Button>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <MailIcon />

@@ -22,19 +22,9 @@ const styles = theme => ({
 
 const Contratos = props => {
   const { classes, dashboardLayoutConfig } = props;
-
-  const fabs = [
-    {
-      color: "primary",
-      className: classes.fab,
-      icon: <AddIcon />
-    }
-  ];
-
   const [openContractFormDialog, setOpenContractFormDialog] = React.useState(
     false
   );
-
   const [showContractDetails, setshowContractDetails] = React.useState(false);
 
   function handleContractFormDialogClickOpen() {
@@ -46,8 +36,16 @@ const Contratos = props => {
   }
 
   function handleShowContractDetails() {
-    setshowContractDetails(!showContractDetails);
+    setTimeout(() => setshowContractDetails(!showContractDetails), 300);
   }
+
+  const fabs = [
+    {
+      color: "primary",
+      className: classes.fab,
+      icon: <AddIcon />
+    }
+  ];
 
   return !showContractDetails ? (
     <DashboardLayout dashboardLayoutConfig={dashboardLayoutConfig}>
@@ -55,7 +53,7 @@ const Contratos = props => {
         in
         timeout={{
           enter: 300,
-          exit: 600
+          exit: 300
         }}
         style={{
           transitionDelay: `300ms`
@@ -72,11 +70,11 @@ const Contratos = props => {
         key={fabs[0].color}
         in
         timeout={{
-          enter: 900,
-          exit: 900
+          enter: 600,
+          exit: 600
         }}
         style={{
-          transitionDelay: `300ms`
+          transitionDelay: `600ms`
         }}
         unmountOnExit
       >
@@ -99,8 +97,8 @@ const Contratos = props => {
       <Fade
         in
         timeout={{
-          enter: 900,
-          exit: 900
+          enter: 300,
+          exit: 300
         }}
         style={{
           transitionDelay: `300ms`

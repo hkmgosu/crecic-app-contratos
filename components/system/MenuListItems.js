@@ -13,7 +13,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import BuildIcon from "@material-ui/icons/Build";
 import LayersIcon from "@material-ui/icons/Layers";
 import Router from "next/router";
-import { appRoutes } from "../src/constants";
+import { appRoutes } from "../../src/constants";
 
 const styles = theme => ({
   selectedListItem: {

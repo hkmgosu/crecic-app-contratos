@@ -32,6 +32,15 @@ function ContractFormDialog(props) {
           ]}
           onChange={setSeller}
         />
+        <SelectAutoComplete
+          label="Tipo de Contrato"
+          options={[
+            { id: 1, nombre: "Arriendo" },
+            { id: 2, nombre: "Hosting" },
+            { id: 3, nombre: "Desarrollo" }
+          ]}
+          onChange={setSeller}
+        />
         <TextField
           id="customer_code"
           name="client_code"

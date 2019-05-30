@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-handler-names */
+/* eslint-disable react/prop-types, react/jsx-handler-names */
 
 import React from "react";
 import PropTypes from "prop-types";
@@ -157,7 +157,6 @@ class SelectAutocomplete extends React.Component {
   };
 
   handleChange = single => option => {
-    console.log("valueeee", option);
     this.setState(
       {
         [single]: option

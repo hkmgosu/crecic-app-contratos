@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "isomorphic-unfetch";
-import { contracts } from "./ContractsData";
+import { contracts as contractData } from "./ContractsData";
 
 const styles = theme => ({
   root: {
@@ -41,7 +41,7 @@ class ContractTable extends Component {
       await this.setState({ contracts: false });
       const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
       const data = await res.json();
-      await this.setState({ contracts: data }); // eslint-disable-line
+      await this.setState({ contracts: contractData }); // eslint-disable-line
     } catch (err) {
       console.log(err); // eslint-disable-line
     }

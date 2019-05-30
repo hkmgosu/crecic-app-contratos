@@ -3,10 +3,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import DashboardLayout from "../components/DashboardLayout";
-import SimpleLineChart from "../components/SimpleLineChart";
-import PieChartExample from "../components/PieChartExample";
-import ComposedChartExample from "../components/ComposedChartExample";
-import SimpleBarChartExample from "../components/SimpleBarChartExample";
+import SimpleLineChart from "../components/system/SimpleLineChart";
+import ComposedChartExample from "../components/system/ComposedChartExample";
 import { appRoutes } from "../src/constants";
 
 const styles = theme => ({
@@ -26,7 +24,6 @@ const Index = props => {
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
             <ComposedChartExample />
-            {/* <PieChartExample /> */}
             <SimpleLineChart />
           </Typography>
         </Grid>

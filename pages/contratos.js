@@ -61,7 +61,7 @@ const Contratos = props => {
         unmountOnExit
       >
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item lg={9}>
+          <Grid item md={9} lg={9}>
             <ContractList handleClickListItem={handleShowContractDetails} />
           </Grid>
         </Grid>

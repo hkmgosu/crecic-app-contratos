@@ -77,6 +77,11 @@ function BigSnackbar(props) {
   );
 }
 
+BigSnackbar.defaultProps = {
+  loading: false,
+  handleClose: () => {}
+};
+
 BigSnackbar.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,

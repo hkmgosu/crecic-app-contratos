@@ -19,6 +19,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Paper from "@material-ui/core/Paper";
 import { HomeListItems, secondaryListItems } from "./system/ListItems";
 import MenuListItems from "./system/MenuListItems";
 
@@ -267,33 +268,37 @@ class DashboardLayout extends React.Component {
         </AppBar>
         {renderMenu}
         {renderMobileMenu}
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: classNames(
-              classes.drawerPaper,
-              !this.state.open && classes.drawerPaperClose
-            )
-          }}
-          open={this.state.open}
-        >
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={this.handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <HomeListItems selectedMenu={dashboardLayoutConfig.selectedMenu} />
-          </List>
-          <Divider />
-          <MenuListItems
-            handleDrawerOpen={this.handleDrawerOpen}
-            selectedMenu={dashboardLayoutConfig.selectedMenu}
-          />
-          <Divider />
-          <List>{secondaryListItems}</List>
-        </Drawer>
+        <Paper elevation={3}>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: classNames(
+                classes.drawerPaper,
+                !this.state.open && classes.drawerPaperClose
+              )
+            }}
+            open={this.state.open}
+          >
+            <div className={classes.toolbarIcon}>
+              <IconButton onClick={this.handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              <HomeListItems
+                selectedMenu={dashboardLayoutConfig.selectedMenu}
+              />
+            </List>
+            <Divider />
+            <MenuListItems
+              handleDrawerOpen={this.handleDrawerOpen}
+              selectedMenu={dashboardLayoutConfig.selectedMenu}
+            />
+            <Divider />
+            <List>{secondaryListItems}</List>
+          </Drawer>
+        </Paper>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           {this.props.children}

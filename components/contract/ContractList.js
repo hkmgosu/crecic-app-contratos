@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -8,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
+import DeleteIcon from "@material-ui/icons/Delete";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import AppBar from "@material-ui/core/AppBar";
@@ -19,9 +21,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import deepPurple from "@material-ui/core/colors/deepPurple";
 import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from "@material-ui/core/Paper";
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import Chip from "@material-ui/core/Chip";
+import FaceIcon from "@material-ui/icons/Face";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import Divider from "@material-ui/core/Divider";
 import "isomorphic-unfetch";
 import { contracts as contractData } from "./ContractsData";
-import Grid from "@material-ui/core/Grid";
 
 const appBarstyles = theme => ({
   root: {
@@ -163,6 +173,29 @@ function SearchAppBar(props) {
             disableAutoFocusItem
             variant="menu"
           >
+            <MenuItem>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <Typography>Filtros:</Typography>
+                <IconButton
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="Limpiar Filtros"
+                  onClick={() =>
+                    setState({
+                      checkedType: [],
+                      checkedStatus: []
+                    })
+                  }
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+            </MenuItem>
             <MenuItem disabled classes={{ root: classes.menuItemDisabled }}>
               Tipo Contrato
             </MenuItem>
@@ -235,6 +268,9 @@ const listStyles = theme => ({
     margin: 6,
     color: "#fff",
     backgroundColor: deepPurple[500]
+  },
+  gridListItem: {
+    flexGrow: 1
   }
 });
 
@@ -253,7 +289,8 @@ class ContractList extends Component {
 
     this.state = {
       contracts: false,
-      filter: []
+      filter: [],
+      openCollapseListItem: false
     };
   }
 
@@ -276,76 +313,177 @@ class ContractList extends Component {
 
   render() {
     const { classes, handleClickListItem } = this.props;
-    const { contracts } = this.state;
+    const { contracts, openCollapseListItem } = this.state;
 
     const listItems = contracts ? (
       contractData.map((listItemData, index) => (
-        <ListItem
-          key={index + 1}
-          button
-          onClick={handleClickListItem}
-          alignItems="flex-start"
-        >
-          <ListItemAvatar>
-            <Avatar
-              className={classes.avatar}
-              alt={
-                listItemData.avatar
-                  ? listItemData.avatar.alt
-                  : (index + 1).toString()
-              }
+        <Fragment key={index + 1}>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item className={classes.gridListItem}>
+              <ListItem button onClick={handleClickListItem}>
+                <ListItemAvatar>
+                  <Avatar
+                    className={classes.avatar}
+                    alt={
+                      listItemData.avatar
+                        ? listItemData.avatar.alt
+                        : (index + 1).toString()
+                    }
+                  >
+                    {listItemData.avatar
+                      ? listItemData.avatar.alt
+                      : (index + 1).toString()}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <React.Fragment>
+                      <Typography
+                        className={classes.inline}
+                        variant="subtitle2"
+                      >
+                        {listItemData.NomAux}
+                      </Typography>
+                    </React.Fragment>
+                  }
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component="span"
+                        className={classes.inline}
+                        color="textPrimary"
+                      >
+                        {listItemData.RutAux}{" "}
+                      </Typography>
+                      <Typography
+                        component="span"
+                        className={classes.inline}
+                        color={
+                          listItemData.estado ? "primary" : "textSecondary"
+                        }
+                      >
+                        {listItemData.estado ? "vigente" : "estado zero"}{" "}
+                      </Typography>
+                      <Typography
+                        component="span"
+                        className={classes.inline}
+                        color="secondary"
+                      >
+                        {listItemData.vendedor}
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+            </Grid>
+            {openCollapseListItem === index ? (
+              <IconButton
+                style={{ marginLeft: 18, marginRight: 18 }}
+                onClick={() =>
+                  this.setState({
+                    openCollapseListItem: false
+                  })
+                }
+              >
+                <ExpandLess />
+              </IconButton>
+            ) : (
+              <IconButton
+                style={{ marginLeft: 18, marginRight: 18 }}
+                onClick={() =>
+                  this.setState({
+                    openCollapseListItem: index
+                  })
+                }
+              >
+                <ExpandMore />
+              </IconButton>
+            )}
+          </Grid>
+          <Collapse
+            in={openCollapseListItem === index}
+            timeout="auto"
+            // unmountOnExit
+          >
+            <Grid
+              container
+              spacing={16}
+              alignItems="center"
+              direction="row"
+              justify="center"
+              style={{ padding: 18 }}
             >
-              {listItemData.avatar
-                ? listItemData.avatar.alt
-                : (index + 1).toString()}
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary={
-              <React.Fragment>
-                <Typography className={classes.inline} variant="subtitle2">
-                  {listItemData.NomAux} {listItemData.RutAux}{" "}
-                </Typography>
-                {""}
-              </React.Fragment>
-            }
-            secondary={
-              <React.Fragment>
-                <Typography
-                  component="span"
-                  className={classes.inline}
-                  color="textPrimary"
-                >
-                  {`${listItemData.inicio} - ${listItemData.fin} `}
-                </Typography>
-                {listItemData.vendedor}
-              </React.Fragment>
-            }
-          />
-        </ListItem>
+              <Grid item>
+                <Chip
+                  color="primary"
+                  label={listItemData.vendedor}
+                  variant="outlined"
+                  avatar={
+                    <Avatar>
+                      <FaceIcon />
+                    </Avatar>
+                  }
+                />
+              </Grid>
+              <Grid item>
+                <Chip
+                  color="secondary"
+                  label={`Inicio: ${listItemData.inicio} `}
+                  variant="outlined"
+                  avatar={
+                    <Avatar>
+                      <CalendarTodayIcon />
+                    </Avatar>
+                  }
+                />
+              </Grid>
+              <Grid item>
+                <Chip
+                  color="secondary"
+                  label={`Termino: ${listItemData.fin} `}
+                  variant="outlined"
+                  avatar={
+                    <Avatar>
+                      <CalendarTodayIcon />
+                    </Avatar>
+                  }
+                />
+              </Grid>
+              <Grid item>
+                <Chip
+                  color="default"
+                  label="ver contrato"
+                  variant="outlined"
+                  avatar={
+                    <Avatar>
+                      <CloudDownloadIcon />
+                    </Avatar>
+                  }
+                  onClick={() => alert("bajar")}
+                />
+              </Grid>
+            </Grid>
+          </Collapse>
+        </Fragment>
       ))
     ) : (
-      <Grid
-        container
-        className={classes.demo}
-        alignItems="center"
-        direction="row"
-        justify="center"
-        size={190}
-      >
+      <Grid container alignItems="center" direction="row" justify="center">
         <Grid item>
-          <ListItem>
-            <CircularProgress color="secondary" />
-          </ListItem>
+          <CircularProgress color="secondary" size={90} />
         </Grid>
       </Grid>
     );
 
     return (
-      <React.Fragment>
+      <Paper elevation={3}>
         <ContractListAppBar />
         <List className={classes.root}>{listItems}</List>
-      </React.Fragment>
+      </Paper>
     );
   }
 }

@@ -5,7 +5,8 @@ export const contracts = [
     NomAux: "CLIENTE UNO",
     inicio: "01-01-2010",
     fin: "01-01-2013",
-    vendedor: "Vendedor Uno"
+    vendedor: "Vendedor Uno",
+    estado: 1
   },
   {
     id: 2,
@@ -13,7 +14,8 @@ export const contracts = [
     NomAux: "CLIENTE DOS",
     inicio: "01-01-2011",
     fin: "01-01-2014",
-    vendedor: "Vendedor Dos"
+    vendedor: "Vendedor Dos",
+    estado: 1
   },
   {
     id: 3,
@@ -45,7 +47,8 @@ export const contracts = [
     NomAux: "CLIENTE SEIS",
     inicio: "01-01-2013",
     fin: "01-01-2016",
-    vendedor: "Vendedor Uno"
+    vendedor: "Vendedor Uno",
+    estado: 1
   },
   {
     id: 7,
@@ -69,7 +72,8 @@ export const contracts = [
     NomAux: "CLIENTE NUEVE",
     inicio: "01-01-2017",
     fin: "01-01-2020",
-    vendedor: "Vendedor Tres"
+    vendedor: "Vendedor Tres",
+    estado: 1
   },
   {
     id: 10,
@@ -85,7 +89,8 @@ export const contracts = [
     NomAux: "CLIENTE UNO",
     inicio: "01-01-2010",
     fin: "01-01-2013",
-    vendedor: "Vendedor Uno"
+    vendedor: "Vendedor Uno",
+    estado: 1
   },
   {
     id: 22,
@@ -109,7 +114,8 @@ export const contracts = [
     NomAux: "CLIENTE CUATRO",
     inicio: "01-01-2012",
     fin: "01-01-2015",
-    vendedor: "Vendedor Cuatro"
+    vendedor: "Vendedor Cuatro",
+    estado: 1
   },
   {
     id: 55,
@@ -125,7 +131,8 @@ export const contracts = [
     NomAux: "CLIENTE SEIS",
     inicio: "01-01-2013",
     fin: "01-01-2016",
-    vendedor: "Vendedor Uno"
+    vendedor: "Vendedor Uno",
+    estado: 1
   },
   {
     id: 77,

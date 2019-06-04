@@ -15,6 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { fade } from "@material-ui/core/styles/colorManipulator";
+import Fade from "@material-ui/core/Fade";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -29,7 +30,6 @@ import Chip from "@material-ui/core/Chip";
 import FaceIcon from "@material-ui/icons/Face";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import Divider from "@material-ui/core/Divider";
 import "isomorphic-unfetch";
 import { contracts as contractData } from "./ContractsData";
 
@@ -304,7 +304,7 @@ class ContractList extends Component {
           this.setState({ contracts: contractData }, () => {
             resolve();
           });
-        }, 2000);
+        }, 1000);
       }); // eslint-disable-line
     } catch (err) {
       console.log(err); // eslint-disable-line
@@ -332,12 +332,12 @@ class ContractList extends Component {
                     alt={
                       listItemData.avatar
                         ? listItemData.avatar.alt
-                        : (index + 1).toString()
+                        : listItemData.id.toString()
                     }
                   >
                     {listItemData.avatar
                       ? listItemData.avatar.alt
-                      : (index + 1).toString()}
+                      : listItemData.id.toString()}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -347,7 +347,7 @@ class ContractList extends Component {
                         className={classes.inline}
                         variant="subtitle2"
                       >
-                        {listItemData.NomAux}
+                        {listItemData.cliente.razonSocial}
                       </Typography>
                     </React.Fragment>
                   }
@@ -358,28 +358,23 @@ class ContractList extends Component {
                         className={classes.inline}
                         color="textPrimary"
                       >
-                        {listItemData.RutAux}{" "}
+                        {listItemData.cliente.rut}{" "}
                       </Typography>
                       <Typography
                         component="span"
                         className={classes.inline}
                         color={
-                          listItemData.estado ? "primary" : "textSecondary"
+                          listItemData.estado &&
+                          listItemData.estado.id === 2 &&
+                          listItemData.estado.nombre.toLowerCase() === "vigente"
+                            ? "primary"
+                            : "textSecondary"
                         }
                       >
-                        {listItemData.estado ? "vigente" : "estado zero"}{" "}
+                        {listItemData.estado
+                          ? `${listItemData.estado.nombre.toLowerCase()} `
+                          : " "}
                       </Typography>
-                      <Chip
-                        color="primary"
-                        label={listItemData.vendedor}
-                        size="small"
-                        variant="outlined"
-                        avatar={
-                          <Avatar>
-                            <FaceIcon />
-                          </Avatar>
-                        }
-                      />
                     </React.Fragment>
                   }
                 />
@@ -409,23 +404,19 @@ class ContractList extends Component {
               </IconButton>
             )}
           </Grid>
-          <Collapse
-            in={openCollapseListItem === index}
-            timeout="auto"
-            // unmountOnExit
-          >
+          <Collapse in={openCollapseListItem === index} unmountOnExit>
             <Grid
               container
               spacing={16}
               alignItems="center"
               direction="row"
               justify="center"
-              style={{ padding: 18 }}
             >
               <Grid item>
                 <Chip
                   color="primary"
-                  label={listItemData.vendedor}
+                  size="small"
+                  label={listItemData.vendedor.nombre}
                   variant="outlined"
                   avatar={
                     <Avatar>
@@ -437,7 +428,10 @@ class ContractList extends Component {
               <Grid item>
                 <Chip
                   color="secondary"
-                  label={`Inicio: ${listItemData.inicio} `}
+                  size="small"
+                  label={`Inicio: ${
+                    listItemData.inicio ? listItemData.inicio : "-"
+                  } `}
                   variant="outlined"
                   avatar={
                     <Avatar>
@@ -449,7 +443,10 @@ class ContractList extends Component {
               <Grid item>
                 <Chip
                   color="secondary"
-                  label={`Termino: ${listItemData.fin} `}
+                  size="small"
+                  label={`Termino: ${
+                    listItemData.termino ? listItemData.termino : "-"
+                  } `}
                   variant="outlined"
                   avatar={
                     <Avatar>
@@ -462,6 +459,7 @@ class ContractList extends Component {
                 <Chip
                   color="default"
                   label="ver contrato"
+                  size="small"
                   variant="outlined"
                   avatar={
                     <Avatar>
@@ -476,9 +474,27 @@ class ContractList extends Component {
         </Fragment>
       ))
     ) : (
-      <Grid container alignItems="center" direction="row" justify="center">
-        <Grid item>
-          <CircularProgress color="secondary" size={90} />
+      <Grid
+        container
+        alignItems="center"
+        direction="column"
+        justify="center"
+        style={{ height: "100%" }}
+      >
+        <Grid item xs={4}>
+          <Fade
+            in
+            timeout={{
+              enter: 300,
+              exit: 300
+            }}
+            style={{
+              transitionDelay: `300ms`
+            }}
+            unmountOnExit
+          >
+            <CircularProgress color="secondary" size={90} />
+          </Fade>
         </Grid>
       </Grid>
     );

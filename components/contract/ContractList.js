@@ -369,13 +369,17 @@ class ContractList extends Component {
                       >
                         {listItemData.estado ? "vigente" : "estado zero"}{" "}
                       </Typography>
-                      <Typography
-                        component="span"
-                        className={classes.inline}
-                        color="secondary"
-                      >
-                        {listItemData.vendedor}
-                      </Typography>
+                      <Chip
+                        color="primary"
+                        label={listItemData.vendedor}
+                        size="small"
+                        variant="outlined"
+                        avatar={
+                          <Avatar>
+                            <FaceIcon />
+                          </Avatar>
+                        }
+                      />
                     </React.Fragment>
                   }
                 />
